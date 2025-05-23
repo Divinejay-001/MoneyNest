@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../../hooks/useUserAuth'
-import DashboardLayout from '../../components/layouts/DAshboardLayout'
+import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { API_PATHS } from '../../utils/apipaths'
 import axiosInstance from '../../utils/axiosInstance'
 import ExpenseOverview from '../../components/Expense/ExpenseOverview'
