@@ -1,4 +1,4 @@
-export const BASE = "http://localhost:5000";
+export const BASE = "https://moneynest-api.onrender.com";
 
 //utils/apipaths.js
 export const API_PATHS =
