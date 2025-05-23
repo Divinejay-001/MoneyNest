@@ -7,8 +7,9 @@ import Home from './pages/Dashboard/Home'
 import Income from './pages/Dashboard/Income'
 import Expense from './pages/Dashboard/Expense'
 import { FaUser } from 'react-icons/fa'
-import UserProvider from './context/userContent'
+// import UserProvider from './context/UserContent'
 import { Toaster } from 'react-hot-toast'
+import UserProvider from './context/UserContext'
 const App = () => {
   return (
     <UserProvider>

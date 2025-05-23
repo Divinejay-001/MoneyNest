@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../../context/userContent'
+import { UserContext } from '../../context/UserContext'
 import Navbar from './Navbar'
 import SideMenu from './SideMenu'
 

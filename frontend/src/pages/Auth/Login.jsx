@@ -6,7 +6,7 @@ import "../../App.css"
 import { validateEmail } from '../../utils/helper'
 import { API_PATHS } from '../../utils/apipaths'
 import axiosInstance from '../../utils/axiosInstance'
-import { UserContext } from '../../context/userContent'
+import { UserContext } from '../../context/UserContext'
 
 const Login = () => {
   const [email , setEmail] = useState('')
