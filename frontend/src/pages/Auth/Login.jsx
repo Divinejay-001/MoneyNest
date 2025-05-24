@@ -9,6 +9,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import { UserContext } from '../../context/UserContext'
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [email , setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -20,39 +21,43 @@ const Login = () => {
   // Handle form submission
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address')
+      setError('Please enter a valid email address');
       return;
     }
     if (!password){
-      setError('Please enter a password')
-      return
+      setError('Please enter a password');
+      return;
     }
-
-    setError("")
-
-    // Call the login API here
-    try{
-      const response  = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+  
+    setError("");
+    setLoading(true); // start loading
+  
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password,
-      })
-      const { token, user} = response.data;
-
-      if(token){
-        localStorage.setItem('token', token)
-        updateUser(user)
-        navigate('/dashboard')
+      });
+  
+      const { token, user } = response.data;
+  
+      if (token) {
+        localStorage.setItem('token', token);
+        updateUser(user);
+        navigate('/dashboard');
       }
     } catch (error) {
-      if(error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
-      } else{
-        setError('Something went wrong. Please try again')
+      } else {
+        setError('Something went wrong. Please try again');
       }
-  }
-}
+    } finally {
+      setLoading(false); // stop loading
+    }
+  };
+  
   return (
     <AuthLayout>
     <div className='lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center '>
@@ -77,7 +82,19 @@ const Login = () => {
 
       {error && <p className='text-red-500 text-xs'>{error}</p>}
 
-      <button type="submit" className='btn w-full my-2 py-2 px-4 text-white uppercase bg-blue-500 rounded-md hover:bg-blue-600'>Login</button>
+      <button
+  type="submit"
+  disabled={loading}
+  className={`btn w-full my-2 py-2 px-4 text-white uppercase rounded-md flex items-center justify-center ${
+    loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+  }`}
+>
+  {loading ? (
+    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+  ) : (
+    'Login'
+  )}
+</button>
 
       <p className='text-sm text-slate-700 mt-4'>Don't have an account? <Link to='/signup' className='underline text-blue-500 cursor-pointer'>Signup</Link></p>
 
