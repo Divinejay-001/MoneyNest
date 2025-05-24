@@ -10,7 +10,7 @@ const SideMenu = ({ activeMenu }) => {
     const navigate = useNavigate()
 
     const handleClick = (route)=>{
-        if(route === 'logout'){
+        if(route === '/logout'){
             handleLogout()
             return;
         }
@@ -22,10 +22,11 @@ const SideMenu = ({ activeMenu }) => {
         }, 300)        
     };
     const handleLogout = () => {
-        localStorage.clear();
-        clearUser()
-        navigate('/login')
-    };
+        localStorage.clear();       // Deletes JWT token
+        clearUser();                // Clears user from context
+        navigate('/login');         // Redirects to login
+      };
+      
 
 
     console.log("Profile Image URL:", user?.profileImageUrl);
