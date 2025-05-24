@@ -1,37 +1,48 @@
 import React, { useState } from 'react'
 import EmojiPicker from 'emoji-picker-react'
 import { LuImage, LuX } from 'react-icons/lu'
-const EmojiPickerPopup = ({icon, onSelect}) => {
+
+const EmojiPickerPopup = ({ icon, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className='flex flex-col md:flex-row items-start gap-5 mb-6'>
       <div
-      className='flex items-center gap-4 cursor-pointer'
-      onClick={() => setIsOpen(true)}
+        className='flex items-center gap-4 cursor-pointer'
+        onClick={() => setIsOpen(true)}
       >
-<div className='w-12 h-12 flex items-center justify-center text-2xl bg-blue-50 text-primary rounded-lg'>
-  {icon ? (
-    <img src={icon} alt='Icon' className='w-12 h-12'/>
-  ) : (
-    <LuImage/>
-  )}
-</div>
-<p>{icon ? "Change Icon" : "Pick Icon"}</p>
+        <div className='w-12 h-12 flex items-center justify-center text-2xl bg-blue-50 text-primary rounded-lg'>
+          {icon ? (
+            <img src={icon} alt='Icon' className='w-12 h-12' />
+          ) : (
+            <LuImage />
+          )}
+        </div>
+        <p>{icon ? 'Change Icon' : 'Pick Icon'}</p>
       </div>
 
       {isOpen && (
-        <div className='relative'>
+        <div className='relative z-20'>
           <button
-          className='w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute z-20 -top-2 -right-2 cursor-pointer '
-          onClick={() => setIsOpen(false)}
+            className='w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-50 cursor-pointer'
+            onClick={() => setIsOpen(false)}
           >
-            <LuX/>
+            <LuX />
           </button>
 
-          <EmojiPicker
-          open={isOpen}
-          onEmojiClick={(emoji) => onSelect(emoji?.imageUrl || "")}
-          />
+          <div className='max-w-[90vw] max-h-[50vh] overflow-auto bg-white rounded-md shadow-lg border border-gray-200 p-2'>
+            <EmojiPicker
+              open={isOpen}
+              onEmojiClick={(emoji) => {
+                onSelect(emoji?.imageUrl || '')
+                setIsOpen(false)
+              }}
+              lazyLoadEmojis={true}
+              skinTonesDisabled={true}
+              height="100%"
+              width="100%"
+            />
+          </div>
         </div>
       )}
     </div>
