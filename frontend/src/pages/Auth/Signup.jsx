@@ -62,6 +62,7 @@ const Signup = () => {
 
       if(token){
         localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user)); // <-- ADD THIS
         updateUser(user)
         navigate('/dashboard')
       }

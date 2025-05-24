@@ -14,26 +14,36 @@ const SideMenu = ({ activeMenu }) => {
             handleLogout()
             return;
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        navigate(route)
+        // Delay navigation slightly to allow scroll animation
+        setTimeout(() => {
+          navigate(route);
+        }, 300)        
     };
     const handleLogout = () => {
         localStorage.clear();
         clearUser()
         navigate('/login')
     };
+
+
+    console.log("Profile Image URL:", user?.profileImageUrl);
   return (
     <div className='w-64 h-[calc(100vh-61px)] bg-white border-r
     border-gray-200/50 p-5 sticky top-[61px] z-20 '>
        <div className=' flex flex-col items-center justify-center gap-3 mt-3
        mb-3'>
        {user?.profileImageUrl ?
+       
         (
             <img 
             src= {user?.profileImageUrl || ""} 
             alt="Profile Image" 
             className='w-20 h-20 bg-slate-400 rounded-full' />
+            
         )
+        
         : (
             <CharAvatar
             fullName={user?.fullName}
@@ -42,6 +52,7 @@ const SideMenu = ({ activeMenu }) => {
             style="text-xl"
             />
         )
+        
         }
 
         <h3 className='text-gray-950 font-medium leading-6'>

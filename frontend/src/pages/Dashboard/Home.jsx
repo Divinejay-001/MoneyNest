@@ -93,8 +93,11 @@ useEffect(() => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
           <RecentTransactions
             transactions={dashboardData.recentTransactions}
-            onSeeMore={() => navigate("/expense")}
-          />
+            onSeeMore={() => {
+              // Scroll to top before navigation
+              window.scrollTo(0, 0);
+              navigate('/expense');
+            }}          />
 
           <FinanceOverview
           totalBalance={dashboardData?.totalBalance || 0}
@@ -104,8 +107,11 @@ useEffect(() => {
 
           <ExpenseTransactions
           transactions={dashboardData?.last30DaysExpenses?.transactions || [] }
-          onSeeMore={() => navigate("/expense")}
-          />
+          onSeeMore={() => {
+            // Scroll to top before navigation
+            window.scrollTo(0, 0);
+            navigate('/expense');
+          }}          />
 
           <Last30DaysExpenses
           data={dashboardData?.last30DaysExpenses?.transactions || []}
@@ -118,9 +124,14 @@ totalIncome={dashboardData?.totalIncome || 0}
 />
 
 <RecentIncome
-transactions={dashboardData?.last60DaysIncome?.transactions || []}
-onSeeMore={() => navigate("/income")}
+  transactions={dashboardData?.last60DaysIncome?.transactions || []}
+  onSeeMore={() => {
+    // Scroll to top before navigation
+    window.scrollTo(0, 0);
+    navigate('/income');
+  }}
 />
+
         </div>
       </div>
     </DashboardLayout>
